@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta name="author" content="Alec Chen">
+<meta name="studendId" content="20154479">
+<meta name="class" content="计科1506 ">
+<meta charset="utf-8">
+<title>陈永泰 20154479 作业1</title>
+<link rel="stylesheet" type="text/css" href="homework1.css">
+<script language="javascript">
+ function encode1(){
+      var original = document.getElementById("original").value;
+      var no1res = document.getElementById("no1res");
+      var code1 = "";
+      var code2 = "";
+      var index = 0;
+      original = original.replace(/\s+/g,"");
+      while (original[index] != undefined){
+            code1 += original[index];
+            if (original[++index] == undefined){
+                break;
+            } else {
+                code2 += original[index++];
+            }
+        }
+      no1res.innerHTML=code1 + " " + code2;
+ }
+
+ function encode2(){
+     var key = document.getElementById("key1").value;
+     var l = key.length;
+     var original = document.getElementById("original1").value;
+     var no2res = document.getElementById("no2res");
+     original = original.replace(/\s+/g,"");
+     var oriL = original.length;
+     var n = Math.ceil(oriL / l);
+     var finalres = "";
+     var i = 0;
+     var j = 0;
+     var tempCode = new Array(l);
+     for (i = 0; i < l; i++){
+         tempCode[i] = "";
+         for (j = 0; j < n; j++){
+             if (original[j*l+i] != undefined){
+                 tempCode[i] += original[j*l+i];
+             }
+             else{
+                 tempCode[i] += "#";
+             }
+         }
+
+     }
+     var sequence = "abcdefghijklmnopqrstuvwxyz";
+     var m = 0;
+     var keym = 0;
+     for (m = 0; m < 26; m++){
+         for (keym = 0; keym < l; keym++){
+             if (sequence[m] == key[keym]){
+                 finalres += tempCode[keym] + "<br>";
+             }
+         }
+     }
+     no2res.innerHTML = finalres;
+ }
+
+
+</script>
+
+</head>
+
+<body>
+    <h1> 陈永泰  20154479  计科1506 </h1><br>
+    <h2>第一次作业</h2>
+    <br>
+    <hr>
+    <div style="text-align:center;margin:15px;">
+        <form>
+            <input type="text" name="name" id="original" />
+            <input type="button" name="button" value="开始双轨加密" onclick="encode1()" />
+        </form>
+    </div>
+    <p>双轨加密的结果是：</p>
+    <P id = "no1res"><br></p>
+
+    <hr>
+    <br>
+
+    <div style="text-align:center;margin:15px;">
+        <form>
+            <p>密钥</p>
+            <input type="text" name="name" id="key1" /><br>
+            <p>明文</p>
+            <input type="text" name="name" id="original1" />
+            <input type="button" name="button" value="开始钥控加密" onclick="encode2()" />
+        </form>
+    </div>
+    <p>钥控加密的结果是：</p>
+    <P id = "no2res"></p>
+
+    <br><br><br>
+    <br><br><br>
+    <hr>
+    <br>
+
+    <div class="betrun"> </div>
+</body>
+
+</html>
