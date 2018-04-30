@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta name="author" content="Alec Chen">
+<meta name="studendId" content="20154479">
+<meta name="class" content="计科1506 ">
+<meta charset="utf-8">
+<title>陈永泰 20154479</title>
+<link rel="stylesheet" type="text/css" href="homework1.css">
+<script language="javascript">
+function test(){
+    alert("test");
+}
+var x = 0, y = 0, q = 0, temp = 0.0, tempp = 0.0;
+
+function ex_Euclid(a, b){
+    if (b==0){
+
+        x = 1;
+        y = 0;
+        q = a;
+    }
+    else {
+        ex_Euclid(b, a%b);
+        temp = x;
+        x = y;
+        tempp = temp-Math.floor(a/b)*y;
+        if (tempp<0){
+            y = Math.ceil(tempp);
+        }
+        else{
+            y = Math.floor(tempp);
+        }
+    }
+}
+
+function ex_start(){
+    var stra = document.getElementById("first").value;
+    var strb = document.getElementById("second").value;
+    var a = parseInt(stra);
+    var b = parseInt(strb);
+    var res = document.getElementById("res");
+    if (a < b){
+        var c = a;
+        a = b;
+        b = c;
+    }
+    ex_Euclid(a, b);
+    if (y < 0){
+        y += parseInt(strb);
+    }
+    res.innerHTML = y;
+}
+
+function myencode(){
+    var seq = document.getElementById("newSeq").value;
+    seq = seq.split(" ");
+    var seqlen = seq.length;
+    var original = document.getElementById("original").value;
+    original = original.replace(/\s+/g,"");
+    var orilen = original.length;
+    if (seqlen > orilen){
+        alert("请输入足够长的原文");
+    }
+    var resultFi = "";
+    var n = 0;
+    var m = 0;
+    var seqnumber = 0;
+
+    flag:
+    while (orilen > 0){
+        for (n = 0; n < seqlen; n++){
+            seqnumber = parseInt(seq[n]) - 1;
+            for (m = 0; m < seqlen; m++){
+                if (m == seqnumber){
+                    if (original[m] == undefined){resultFi += "";alert("最后一组不够一个周期， 则缺失的位用空代替");}
+                    else{resultFi += original[m];break;}
+                }
+            }
+        }
+        original = original.substring(seqlen, orilen);
+        orilen = orilen - seqlen;
+    }
+    var res2 = document.getElementById("res2");
+    res2.innerHTML = resultFi;
+}
+
+
+</script>
+
+</head>
+
+<body>
+    <h1> 陈永泰  20154479  计科1506 </h1><br>
+    <h2>信息安全作业</h2>
+    <br>
+    <hr>
+    <p>求乘法逆元</p>
+    <div style="text-align:center;margin:15px;">
+        <form>
+            <input type="number" name="name" id="first" />
+            <p>关于</p>
+            <input type="number" name="name" id="second" />
+            <p>的</p>
+            <input type="button" name="button" value="乘法逆元" onclick="ex_start()" />
+            <p>为</p>
+        </form>
+    </div>
+    <P id = "res"><br></p>
+    <br>
+    <hr>
+    <p>周期换位加密</p>
+    <div style="text-align:center;margin:15px;">
+        <form>
+            <p>请输入新的顺序</p>
+            <input type="text" name="name" id="newSeq" />
+            <p>请输入原文</p>
+            <input type="text" name="name" id="original" /><br>
+            <input type="button" name="button" value="周期加密" onclick="myencode()" />
+            <p>加密后的密文：</p>
+        </form>
+    </div>
+    <P id = "res2"></p>
+
+
+    <div class="betrun"> </div>
+</body>
+
+</html>
