@@ -8,3 +8,5 @@
 ### 二
 - 乘法逆元
 - 周期加密
+
+link : https://acytoo.github.io/InfoSec/
